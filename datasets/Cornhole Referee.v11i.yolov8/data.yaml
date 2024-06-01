@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 6
+names: ['blue-bean-bag', 'blue-bean-bag-in-hole', 'board', 'hole', 'red-bean-bag', 'red-bean-bag-in-hole']
+
+roboflow:
+  workspace: cornhole-referee
+  project: cornhole-referee
+  version: 11
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/cornhole-referee/cornhole-referee/dataset/11
