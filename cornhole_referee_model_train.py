@@ -35,7 +35,7 @@ def find_trained_model(
     filename: str = "best.pt", search_path: str = "/opt/homebrew/runs/detect"
 ) -> str:
     """
-    Find a pretrained cornhole detection model.
+    Finds a pretrained cornhole detection model.
 
     Uses the os.walk() method to search for the filename parameter in the user's filesystem. If filename is not found, then the train_cornhole_model() function
     will be called and this method will run again recursively. If more than one occurrence of filename is found, then an error message is printed.
@@ -71,7 +71,3 @@ def find_trained_model(
 
     # return the path to the filename file
     return trained_models[0]
-
-
-if __name__ == "__main__":
-    train_cornhole_model()
