@@ -16,10 +16,10 @@ def train_cornhole_model():
     # Display model information
     model.info()
 
-    # Train the model on the custom cornhole_images dataset
+    # Train the model on the custom cornhole images dataset
     # epochs is set to 100 by default, and imgsz is set to 640 x 640 pixels by default
     results = model.train(
-        # Path to yaml file for custom cornhole_images dataset
+        # Path to yaml file for custom cornhole images dataset
         data="/opt/homebrew/datasets/Cornhole Referee.v11i.yolov8/data.yaml",
         # Automatically use the maximum number of batches available based on the available RAM
         # batch=-1,

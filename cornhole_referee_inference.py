@@ -25,7 +25,7 @@ class CornholeInference:
         self.RED_BEAN_BAG_CLASS_ID = 4
         self.RED_BEAN_BAG_IN_HOLE_CLASS_ID = 5
 
-        # Initialize the board coordinates incase the board is not detected in the first frame
+        # Initialize the board coordinates in case the board is not detected in the first frame
         self.board_coordinates = torch.Tensor([0, 0, 0, 0])
 
     def calculate_score(self):
@@ -35,7 +35,6 @@ class CornholeInference:
         Adds one point for each bean bag on the board, and three points for each bean bag in the hole. Uses a PoylgonZone to identify the number of blue and red bean bags on the board.
         """
         # Get the coordinates of the board to use for points scoring
-        # Only update the coordinates values if a non-None result was returned
         i = 0
         while (
             i < len(self.results.boxes)
@@ -67,10 +66,10 @@ class CornholeInference:
         board_zone.trigger(self.blue_bean_bag_detections)
         self.blue_bean_bags_on_board = self.blue_points = board_zone.current_count
 
+        self.blue_points += len(self.blue_bean_bags_in_hole_detections) * 3
+
         board_zone.trigger(self.red_bean_bag_detections)
         self.red_bean_bags_on_board = self.red_points = board_zone.current_count
-
-        self.blue_points += len(self.blue_bean_bags_in_hole_detections) * 3
 
         self.red_points += len(self.red_bean_bags_in_hole_detections) * 3
 
@@ -81,7 +80,7 @@ class CornholeInference:
         Shows the point total, the number of bean bags on the board, and the number of bean bags in the hole for each color. Adds a white rectangle at the top of the screen to make the score text more visible.
         """
         score_information = {
-            # Display the number of points that the blue team has in the top right corner of the image
+            # Display the number of points that the blue team has in the top left corner of the image
             f"Blue Points: {self.blue_points} ({len(self.blue_bean_bags_in_hole_detections)} in hole) ({self.blue_bean_bags_on_board} on board)": [
                 (90, 50),
                 (255, 0, 0),
@@ -96,7 +95,7 @@ class CornholeInference:
         self.annotated_frame = cv2.rectangle(
             self.annotated_frame, (0, 0), (1920, 75), (255, 255, 255), -1
         )
-        # Loop through the dictionary and display the information
+        # Loop through the score_information dictionary and display the information
         for key in score_information:
             self.annotated_frame = cv2.putText(
                 self.annotated_frame,
@@ -124,18 +123,21 @@ class CornholeInference:
         # Get a pretrained cornhole detection model
         cornhole_model = YOLO(cornhole_train.find_trained_model())
 
-        # Annotator to draws boundary boxes around the subjects of interest
+        # Annotator to draw boundary boxes around the subjects of interest
         bounding_box_annotator = sv.BoundingBoxAnnotator()
-        # Annotator to displays labels for subjects of interest
+        # Annotator to display labels for subjects of interest
         label_annotator = sv.LabelAnnotator()
 
         # If a file path is not specified, run an inference on a live camera stream
         if file_path is None:
             cap = cv2.VideoCapture(camera_port)
+            # Use a wait_key_duration of 1 so the frames of the camera stream are continuously displayed for the user to see
             wait_key_duration = 1
         # If a file path is specified, run an inference on that file
         else:
             cap = cv2.VideoCapture(file_path)
+            # Use a wait_key_duration of 0 so the user can hold down a key to analyze the frames of the image or video one-by-one
+            # Using a wait_key_duration of 0 prevents image files from closing immediately after an inference has been run on it
             wait_key_duration = 0
 
         # Loop through the video frames
@@ -175,7 +177,7 @@ class CornholeInference:
                 self.annotated_frame = label_annotator.annotate(
                     scene=frame, detections=detections
                 )
-
+                # Display the score and count totals if necessary
                 if calculate_score:
                     self.calculate_score()
                     self.display_information()
@@ -189,5 +191,7 @@ class CornholeInference:
             if cv2.waitKey(wait_key_duration) == ord("q"):
                 break
 
+        # Close the camera
         cap.release()
+        # Close all the windows displaying the frames of the image, video, or camera stream
         cv2.destroyAllWindows()
