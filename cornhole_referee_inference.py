@@ -191,34 +191,3 @@ class CornholeInference:
 
         cap.release()
         cv2.destroyAllWindows()
-
-
-def main():
-    """
-    main Calls the run_inference method from the CornholeInference class based on the command line arguments provided.
-
-    If the first command line argument is "True", then the run_inference method will be called so it runs an inference on a live video stream. An optional second command line argument can be included to specify the port number, otherwise the port number will default to 0.
-    If the first command line argument is anything but "True", then the run inference method will be called with the image or video file path that must be passed as a required second command line argument. If no path is specified, then the script will exit with an error message.
-    """
-    cornhole_inference = CornholeInference()
-    # Call the appropriate function based on the specified command line arguments
-    if str(sys.argv[1]) == "True":
-        # Specify the camera port if it was specified
-        try:
-            cornhole_inference.run_inference(camera_port=int(sys.argv[2]))
-        # If no camera port was specified, then use the default value
-        except IndexError:
-            cornhole_inference.run_inference()
-    else:
-        try:
-            cornhole_inference.run_inference(file_path=str(sys.argv[2]))
-        except IndexError:
-            sys.exit(
-                "Please specify the image or video file path as the second command line argument."
-            )
-        except TypeError:
-            sys.exit("Path needs to be in string format. Aborting.")
-
-
-if __name__ == "__main__":
-    main()
