@@ -49,14 +49,8 @@ To install ultralytics, you can run run this command in your terminal:
 To install supervision, you can run this command in your terminal:
 ```pip3 install supervision```. The supervision library contains useful methods for displaying annotations to the screen, and is used for score calculations.
 
-To generate your own documentation based on the specified docstrings in your source files, you can use the Sphinx library. The sphinx-rtd-theme was also used to generate the current version of the cornhole referee documentation. To install Sphinx and the sphinx-rtd-theme, you can run the following commands in your terminal:
-```
-pip install Sphinx
-pip install sphinx-rtd-theme
-```
-
 ## Usage Guide
-To use cornhole referee, start the cornhole-referee.py script by running the following command in your terminal: ```python3 cornhole-referee.py```. Running this command with no specified options will start running an inference on a live camera stream with live score updates.
+To use cornhole referee, start the cornhole-referee.py script by running the following command in your terminal: ```python3 cornhole-referee.py```. Running this command with no specified options will start running an inference on a live camera stream with live score updates. You can access the [cornhole-referee.py documentation](docs/_build/html/cornhole_referee.html) by clicking the link.
 
 The cornhole-referee.py script takes a variety of options which have been described in the table below:
 
