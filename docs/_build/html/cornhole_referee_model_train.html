@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cornhole_referee_model_train module &mdash; &#34;Cornhole Referee&#34; 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            "Cornhole Referee"
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">cornhole_referee_model_train module</a><ul>
+<li><a class="reference internal" href="#cornhole_referee_model_train.find_trained_model"><code class="docutils literal notranslate"><span class="pre">find_trained_model()</span></code></a></li>
+<li><a class="reference internal" href="#cornhole_referee_model_train.train_cornhole_model"><code class="docutils literal notranslate"><span class="pre">train_cornhole_model()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">"Cornhole Referee"</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">cornhole_referee_model_train module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cornhole_referee_model_train.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-cornhole_referee_model_train">
+<span id="cornhole-referee-model-train-module"></span><h1>cornhole_referee_model_train module<a class="headerlink" href="#module-cornhole_referee_model_train" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="cornhole_referee_model_train.find_trained_model">
+<span class="sig-prename descclassname"><span class="pre">cornhole_referee_model_train.</span></span><span class="sig-name descname"><span class="pre">find_trained_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'best.pt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'/opt/homebrew/runs/detect'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/cornhole_referee_model_train.html#find_trained_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cornhole_referee_model_train.find_trained_model" title="Link to this definition"></a></dt>
+<dd><p>Finds a pretrained cornhole detection model.</p>
+<p>Uses the os.walk() method to search for the filename parameter in the user’s filesystem. If filename is not found, then the train_cornhole_model() function
+will be called and this method will run again recursively. If more than one occurrence of filename is found, then an error message is printed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The filename that this function should search for. Defaults to “best.pt”.</p></li>
+<li><p><strong>search_path</strong> (<em>str</em>) – The path that this method should start searching in. Defaults to the /opt/homebrew/runs/detect directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The path to filename in the user’s computer if only one occurrence (or no occurrence) of filename is found.
+None: If more than one occurrence of filename is found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cornhole_referee_model_train.train_cornhole_model">
+<span class="sig-prename descclassname"><span class="pre">cornhole_referee_model_train.</span></span><span class="sig-name descname"><span class="pre">train_cornhole_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cornhole_referee_model_train.html#train_cornhole_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cornhole_referee_model_train.train_cornhole_model" title="Link to this definition"></a></dt>
+<dd><p>Trains a cornhole detection model using YOLOv8.</p>
+<p>YOLOv8 will automatically generate a best.pt file for the trained model which can then be accessed in other parts of the cornhole detection program.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, &#34;Arjun Sudheer&#34;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

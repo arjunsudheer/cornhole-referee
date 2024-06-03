@@ -1,0 +1,7 @@
+cornhole\_referee\_inference module
+===================================
+
+.. automodule:: cornhole_referee_inference
+   :members:
+   :undoc-members:
+   :show-inheritance:

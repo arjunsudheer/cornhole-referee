@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cornhole_referee &mdash; &#34;Cornhole Referee&#34; 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            "Cornhole Referee"
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">"Cornhole Referee"</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cornhole_referee</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cornhole_referee</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="kn">from</span> <span class="nn">ultralytics</span> <span class="kn">import</span> <span class="n">YOLO</span>
+
+<span class="kn">import</span> <span class="nn">image_capture</span>
+<span class="kn">import</span> <span class="nn">cornhole_referee_inference</span> <span class="k">as</span> <span class="nn">cornhole_inference</span>
+<span class="kn">import</span> <span class="nn">cornhole_referee_model_train</span> <span class="k">as</span> <span class="nn">cornhole_train</span>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../cornhole_referee.html#cornhole_referee.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    main Invokes the appropriate cornhole referee function or method based on the provided command line arguments</span>
+
+<span class="sd">    If the -c option is used, the image_capture process will start to collect images for dataset creation.</span>
+<span class="sd">    If the -i option is used with an argument of 0, then an inference on a live camera stream will be started. The score will not be calculated.</span>
+<span class="sd">    If the -i option is used with an argument of 1, then the user will be prompted for an image or video file path. Once it has been provided, an inference on that file will be started. The score will not be calculated.</span>
+<span class="sd">    If the -t option is used, a new version of the cornhole referee model will be forcefully trained.</span>
+<span class="sd">    If no options are provided, then an inference on a live camera stream will be started. The score will be calculated.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inference</span> <span class="o">=</span> <span class="n">cornhole_inference</span><span class="o">.</span><span class="n">CornholeInference</span><span class="p">()</span>
+
+    <span class="c1"># Specify what options are available to the user</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--capture&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Open a camera stream to start saving images for dataset creation.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-i&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--inference&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Run an inference using a trained cornhole detection model. Specify 0 to run an inference on a live camera stream, and 1 to run an inference on an image of video file.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-t&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--train&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Train a new cornhole detection model, even if one already exists.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># The -c option was used</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">capture</span><span class="p">:</span>
+        <span class="c1"># Start the capturing images for dataset creation</span>
+        <span class="n">image_capture</span><span class="o">.</span><span class="n">capture_images</span><span class="p">()</span>
+    <span class="c1"># The -i 0 option was used</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">inference</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Run an inference on a live camera stream</span>
+        <span class="n">inference</span><span class="o">.</span><span class="n">run_inference</span><span class="p">()</span>
+    <span class="c1"># The -i 1 option was used</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">inference</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Prompt the user for a file path</span>
+            <span class="n">inference_file_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                <span class="nb">input</span><span class="p">(</span>
+                    <span class="s2">&quot;Please enter the absolute path (as a string) to the image or video file you want to run an inference on: &quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># Run an inference on an image or vidoe file</span>
+            <span class="n">inference</span><span class="o">.</span><span class="n">run_inference</span><span class="p">(</span><span class="n">inference_file_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="c1"># Exit if the input is not a string</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Path needs to be in string format. Aborting.&quot;</span><span class="p">)</span>
+    <span class="c1"># The -t option was used</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">train</span><span class="p">:</span>
+        <span class="c1"># Train a new version of the model</span>
+        <span class="n">cornhole_train</span><span class="o">.</span><span class="n">train_cornhole_model</span><span class="p">()</span>
+    <span class="c1"># No options were used</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Run an inference using the cornhole model and calculate the score</span>
+        <span class="n">inference</span><span class="o">.</span><span class="n">run_inference</span><span class="p">(</span><span class="n">calculate_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, &#34;Arjun Sudheer&#34;.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
