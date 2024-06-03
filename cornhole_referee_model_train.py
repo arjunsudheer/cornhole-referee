@@ -16,10 +16,10 @@ def train_cornhole_model():
     # Display model information
     model.info()
 
-    # Train the model on the custom cornhole_images dataset
+    # Train the model on the custom cornhole images dataset
     # epochs is set to 100 by default, and imgsz is set to 640 x 640 pixels by default
     results = model.train(
-        # Path to yaml file for custom cornhole_images dataset
+        # Path to yaml file for custom cornhole images dataset
         data="/opt/homebrew/datasets/Cornhole Referee.v11i.yolov8/data.yaml",
         # Automatically use the maximum number of batches available based on the available RAM
         # batch=-1,
@@ -41,12 +41,12 @@ def find_trained_model(
     will be called and this method will run again recursively. If more than one occurrence of filename is found, then an error message is printed.
 
     Args:
-        filename (str): The filename that this function should search for. Defaults to "best.pt"
+        filename (str): The filename that this function should search for. Defaults to "best.pt".
         search_path(str): The path that this method should start searching in. Defaults to the /opt/homebrew/runs/detect directory.
 
     Returns:
-        str: The path to filename in the user's computer if only one occurrence (or no occurrence) of filename is found
-        None: If more than one occurrence of filename is found
+        str: The path to filename in the user's computer if only one occurrence (or no occurrence) of filename is found.
+        None: If more than one occurrence of filename is found.
     """
 
     # Stores all the paths found to filename

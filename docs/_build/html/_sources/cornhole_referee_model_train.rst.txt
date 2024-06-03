@@ -1,0 +1,7 @@
+cornhole\_referee\_model\_train module
+======================================
+
+.. automodule:: cornhole_referee_model_train
+   :members:
+   :undoc-members:
+   :show-inheritance:

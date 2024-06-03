@@ -1,0 +1,10 @@
+cornhole-referee
+================
+
+.. toctree::
+   :maxdepth: 4
+
+   cornhole_referee
+   cornhole_referee_inference
+   cornhole_referee_model_train
+   image_capture

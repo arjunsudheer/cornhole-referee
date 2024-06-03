@@ -1,3 +1,12 @@
 __pycache__
 yolov8n.pt
 .DS_Store
+docs/_static
+docs/_templates
+docs/cornhole_*
+docs/image_capture.rst
+docs/index.rst
+docs/make.bat
+docs/Makefile
+docs/modules.rst
+docs/_build/doctrees

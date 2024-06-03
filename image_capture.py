@@ -2,6 +2,7 @@ import cv2
 import os
 
 
+# Use openCV to capture images for dataset creation so that all images are saved in a format that is readable by Roboflow
 def capture_images():
     """
     capture_images Open a camera stream to save images for dataset creation.
@@ -9,10 +10,10 @@ def capture_images():
     cd into the cornhole-dataset-original-images directory to save captured images. If the cornhole-dataset-original-images directory does not exist, then it will be created.
     Displays what the camera sees in a window. If the user presses 's', save the current frame as an image. If the user presses 'q' then quit the image capture process.
     """
-    # Create the "cornhole-dataset" directory if it doesn't already exist
+    # Create the "cornhole-dataset-original-images" directory if it doesn't already exist
     if not os.path.isdir("datasets/cornhole-dataset-original-images"):
         os.mkdir("datasets/cornhole-dataset-original-images")
-    # Change the working directory to the cornhole-dataset directory so all images are saved there
+    # Change the working directory to the cornhole-dataset-original-images directory so all images are saved there
     os.chdir("datasets/cornhole-dataset-original-images")
 
     # Start the camera stream
@@ -43,3 +44,5 @@ def capture_images():
 
     # close the camera
     camera.release()
+    # Close all the windows displaying the frames of the image, video, or camera stream
+    cv2.destroyAllWindows()
