@@ -41,12 +41,12 @@ def find_trained_model(
     will be called and this method will run again recursively. If more than one occurrence of filename is found, then an error message is printed.
 
     Args:
-        filename (str): The filename that this function should search for. Defaults to "best.pt"
+        filename (str): The filename that this function should search for. Defaults to "best.pt".
         search_path(str): The path that this method should start searching in. Defaults to the /opt/homebrew/runs/detect directory.
 
     Returns:
-        str: The path to filename in the user's computer if only one occurrence (or no occurrence) of filename is found
-        None: If more than one occurrence of filename is found
+        str: The path to filename in the user's computer if only one occurrence (or no occurrence) of filename is found.
+        None: If more than one occurrence of filename is found.
     """
 
     # Stores all the paths found to filename
