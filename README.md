@@ -2,6 +2,19 @@
 
 Cornhole Referee is an AI and computer vision project that is meant to calculate the scores of the red team and the blue team in a cornhole game, similar to how a human referee might do so.
 
+## Video Demonstrations of Cornhole Referee
+In the video below, a blue bean bag and a red bean bag are thrown onto the board which should award each team +1 point. The score starts off with team blue having 3 points, and team red having 5 points. After the bean bags are thrown onto the board, cornhole referee correctly updates team blue's score to 4 and team red's score to 6.
+
+https://github.com/arjunsudheer/cornhole-referee/assets/20782162/803ad65e-af7b-49ec-acb4-591746019019
+
+In the video below, two blue bean bags and two red bean bags are each thrown. One bean bag for each team lands on the board which awards +1 point, and the other bean bag for each team lands in the hole which awards +3 points. Each team starts off with 0 points. After the bean bags are thrown, cornhole referee correctly updates team blue's score to 4 and team red's score to 4.
+
+https://github.com/arjunsudheer/cornhole-referee/assets/20782162/9a249e81-4846-460d-b734-1f0c31d6482d
+
+In the video below, a blue bean bag and a red bean bag are thrown. Both bean bags end up missing both the board and the hole and land on the ground which awards no points. Each team starts off with 2 points. After the bean bags are thrown, cornhole referee correctly identifies that both bean bags have missed the board and the hole and does not award any extra points. The score for team blue is left at 2 and the score for team red is also left at 2.
+
+https://github.com/arjunsudheer/cornhole-referee/assets/20782162/782dd42b-cc61-45fb-8a05-512c78201071
+
 ## Tools and Technologies Used
 * Python Programming
 * YOLOv8 (from ultralytics)
