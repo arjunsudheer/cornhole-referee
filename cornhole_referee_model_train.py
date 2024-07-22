@@ -18,13 +18,13 @@ def train_cornhole_model():
 
     # Train the model on the custom cornhole images dataset
     # epochs is set to 100 by default, and imgsz is set to 640 x 640 pixels by default
-    results = model.train(
+    model.train(
         # Path to yaml file for custom cornhole images dataset
-        data="/opt/homebrew/datasets/Cornhole Referee.v11i.yolov8/data.yaml",
+        data="/home/arjunsudheer/personal_projects/cornhole-referee/datasets/Cornhole Referee.v11i.yolov8/data.yaml",
         # Automatically use the maximum number of batches available based on the available RAM
-        # batch=-1,
-        # Optimize for apple silicon cores when training
-        device="mps",
+        batch=-1,
+        # Optimize for gpu when training
+        device=0,
     )
 
 
@@ -32,7 +32,7 @@ def train_cornhole_model():
 # Returns an error message if more than one filename file was found
 # Trains the model if no filename file was found
 def find_trained_model(
-    filename: str = "best.pt", search_path: str = "/opt/homebrew/runs/detect"
+    filename: str = "best.pt", search_path: str = "/home/arjunsudheer/personal_projects/cornhole-referee/runs/detect"
 ) -> str:
     """
     Finds a pretrained cornhole detection model.
@@ -51,7 +51,7 @@ def find_trained_model(
 
     # Stores all the paths found to filename
     trained_models = []
-    for root, dir, files in os.walk(search_path):
+    for root, files in os.walk(search_path):
         if filename in files:
             trained_models.append(os.path.join(root, filename))
 
